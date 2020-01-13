@@ -15,12 +15,20 @@ def login(login=USER, password=PASS):
 #    headers = {'Content-Type': 'application/json'}
     params = {'login': login, 'password': password}
     r = requests.post(url, params=params)
-#    print(r.status_code)
+#   print(r.text)
+    print(r)
+
     if r.status_code != 200:
-        print('Ответ сервера: ', r.text)
+        print('Ответ сервера: ', r)
         raise Exception('Не удалось получить токен')
 
-    token = json.loads(r.text)
+    token = json.loads(r)
+#    print(r.status_code)
+#    if r.status_code != 200:
+ #       print('Ответ сервера: ', r.text)
+  #      raise Exception('Не удалось получить токен')
+
+#    token = json.loads(r.text)
 
     return token.get('token')
 
