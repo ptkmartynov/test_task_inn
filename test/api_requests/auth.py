@@ -9,37 +9,43 @@ API_VER = ':7024/api/v1'
 
 API_PATH = HOST + API_VER
 
-def login(login=USER, password=PASS):
-
-    url = API_PATH + '/account/login'
+def loginapi():
+    url = 'http://grafin-uranus.rd.ptsecurity.ru:7024/api/v1/account/login'
+   # url = API_PATH + '/account/login'
 #    headers = {'Content-Type': 'application/json'}
-    params = {'login': login, 'password': password}
-    r = requests.post(url, params=params)
-#   print(r.text)
-    print(r)
+    data = {"login" : "polesurka",
+ "password" : "P@ssw0rd"}
+    r = requests.post(url, json=data)
+    #print(r)
+    #print(r.content)
 
     if r.status_code != 200:
         print('Ответ сервера: ', r)
         raise Exception('Не удалось получить токен')
 
+    #token = r.content
+    #return token
     token = json.loads(r)
-#    print(r.status_code)
-#    if r.status_code != 200:
- #       print('Ответ сервера: ', r.text)
-  #      raise Exception('Не удалось получить токен')
-
-#    token = json.loads(r.text)
-
+    print(token)
     return token.get('token')
 
 
-def get_inn(token):
+#print(loginapi())
 
-    url = API_PATH + 'НАЙТИ урл фида'
-    r = requests.get(url, token=token)
+
+def get_inn():
+
+    url = 'http://grafin-uranus.rd.ptsecurity.ru:7024/api/v1/antifraud/feeds/hashPassport/download'
+    #r = requests.get(url, token=loginapi())
+    headers = {'Authorization': 'Bearer ' + loginapi()}
+    r = requests.get(url, headers=headers)
+    print(r.content)
 
     if r.status_code != 200:
         print('Ответ сервера: ', r.text)
         raise Exception('Не удалось получить токен')
 
     return r.json()
+
+print(get_inn())
+

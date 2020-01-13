@@ -8,13 +8,20 @@ con = psycopg2.connect(
     port="5432"
 )
 
+testinn = str("114226111190")
+
 print("Database opened successfully")
 cursor = con.cursor()
 
-cursor.execute("SELECT * FROM public.feed_value where type = 'inn'")
+cursor.execute("SELECT value FROM public.feed_value where type = 'inn'")
 records = cursor.fetchall()
-for row in records:
-    print("INN = ", row)
+
+for i in records:
+    if testinn in i:
+        print("yes", testinn, i)
+        break
+if testinn not in i:
+    print('no data')
 
 print("Operation done successfully")
 con.close()
