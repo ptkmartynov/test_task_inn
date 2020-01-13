@@ -8,7 +8,7 @@ con = psycopg2.connect(
     port="5432"
 )
 
-testinn = str("114226111190")
+testinn = str("1142261190")
 
 print("Database opened successfully")
 cursor = con.cursor()
