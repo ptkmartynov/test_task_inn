@@ -34,12 +34,13 @@ token = loginapi()
 
 def get_inn():
 
-    url = 'http://grafin-uranus.rd.ptsecurity.ru:7024/api/v1/antifraud/feeds/hashPassport/download'
+    url = 'http://grafin-uranus.rd.ptsecurity.ru:7024/api/v1/antifraud/feeds/inn/download'
     headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + str(token)}
     r = requests.get(url, headers=headers)
     #print(headers)
     #print(r.content)
 
+    #resp = r.json()
     resp = r.text
     return resp
 
@@ -49,15 +50,14 @@ resp = get_inn()
 
 get_inn()
 
-#-----------------
-
-testapicheck = "40bdd9a947832a944894eb21e57f8a1b58496b4fff69f7208c52229925239be9"
-
 #Проверка, есть ли интересующий ИНН в GET запросе
+
+testapicheck = "772083338172"
 
 def check(x):
 
-    resp1 = resp.split('RUS')
+    #через сплит и in, делим строку и ищем в ней содержание искомого инн
+    resp1 = resp.split(',')
     #resp1 = resp.find(x)
     #return resp1
     #print(resp1)

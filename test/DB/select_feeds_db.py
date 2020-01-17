@@ -15,7 +15,6 @@ cursor = con.cursor()
 
 cursor.execute("SELECT value FROM public.feed_value where type = 'inn'")
 records = cursor.fetchall()
-print(type(records))
 
 for i in records:
     if testinn in i:
